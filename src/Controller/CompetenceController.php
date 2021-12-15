@@ -12,14 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CompetenceController extends AbstractController {
 
-    #[Route('/competence', name: 'competence')]
-    public function index(): Response {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/CompetenceController.php',
-        ]);
-    }
-
     /**
      * @Route("/competences", name="get_competences")
      * @param SerializerInterface $serializer
