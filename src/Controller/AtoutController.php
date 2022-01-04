@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AtoutController extends AbstractController {
 
-
     /**
      * @Route("/atouts", name="get_atouts")
      * @param SerializerInterface $serializer

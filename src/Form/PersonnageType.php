@@ -59,6 +59,10 @@ class PersonnageType extends AbstractType {
             'entry_type' => AtoutType::class,
             'allow_add' => true
         ]);
+        $builder->add('aspects', CollectionType::class, [
+            'entry_type' => AspectForm::class,
+            'allow_add' => true
+        ]);
 
     }
 

@@ -172,7 +172,6 @@ class PersonnageController extends AbstractController {
                 $data2 = $repository->create($personnage);
             }
 
-
             $conn = $em->getConnection();
 
             $sql = '
@@ -186,11 +185,13 @@ class PersonnageController extends AbstractController {
                 'id' => $personnage->getId()
             ]);
 
-            $em->flush();
+            //return new Response('<pre>' . print_r($personnage->getAspects()) . '</pre>', Response::HTTP_OK, ['content-type' => 'application/json']);
 
-            //return new Response('<pre>' . print_r($data) . '</pre>', Response::HTTP_OK, ['content-type' => 'text/html']);
-
-            //$data->setImage( $personnage->getImage());
+            try {
+                $em->flush();
+            } catch (\Exception $e){
+                var_dump($e);
+            }
 
             $json = $serializer->serialize($data, 'json');
             return JsonResponse::fromJsonString(

@@ -53,7 +53,6 @@ class Origine {
 
     public function setNom(string $nom): self {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -63,7 +62,6 @@ class Origine {
 
     public function setDescription(?string $description): self {
         $this->description = $description;
-
         return $this;
     }
 

@@ -142,11 +142,24 @@ class Personnage {
     private ?Collection $atouts = NULL;
 
 
+    /**
+     * @var Collection|null
+     *
+     * @ORM\ManyToMany(targetEntity="Aspect", cascade={"persist", "remove"})
+     * @ORM\JoinTable(name="personnage_aspect",
+     *      joinColumns={@ORM\JoinColumn(name="id_personnage", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_aspect", referencedColumnName="id", unique=true)}
+     *      )
+     */
+    private ?Collection $aspects = NULL;
+
+
     public function __construct() {
         $this->competences = new ArrayCollection();
         $this->caracteristiques = new ArrayCollection();
         $this->atouts = new ArrayCollection();
         $this->handicaps = new ArrayCollection();
+        $this->aspects = new ArrayCollection();
     }
 
 
@@ -459,6 +472,36 @@ class Personnage {
 
     public function removeAtout(Atout $atout): self {
         if($this->atouts->removeElement($atout)) {
+            // set the owning side to null (unless already changed)
+            /*
+            if ($handicap->getPersonnage() === $this) {
+                $handicap->setPersonnage(null);
+            }
+            */
+        }
+        return $this;
+    }
+
+
+    /**
+     * @return Collection|null
+     */
+    public function getAspects(): ArrayCollection|Collection|null {
+        return $this->aspects;
+    }
+
+    public function addAspect(Aspect $aspect): self {
+        if ($this->aspects === null) {
+            $this->aspects = new ArrayCollection();
+        }
+        if (!$this->aspects->contains($aspect)) {
+            $this->aspects[] = $aspect;
+        }
+        return $this;
+    }
+
+    public function removeAspect(Aspect $aspect): self {
+        if($this->aspects->removeElement($aspect)) {
             // set the owning side to null (unless already changed)
             /*
             if ($handicap->getPersonnage() === $this) {
